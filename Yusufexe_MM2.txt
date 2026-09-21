@@ -1,7 +1,7 @@
-    local Yusuf.exe = {}
-    Yusuf.exe.__index = Yusuf.exe
-    Yusuf.exe._VERSION = "1.0.0"
-    Yusuf.exe._WINDOWS = {}
+    local YusufExe = {}
+    YusufExe.__index = YusufExe
+    YusufExe._VERSION = "1.0.0"
+    YusufExe._WINDOWS = {}
     local TweenService     = game:GetService("TweenService")
     local UserInputService = game:GetService("UserInputService")
     local RunService       = game:GetService("RunService")
@@ -32,7 +32,7 @@
         FontBold   = Enum.Font.GothamBold,
         FontLight  = Enum.Font.Gotham,
     }
-    Yusuf.exe.Theme = Theme
+    YusufExe.Theme = Theme
     local Util = {}
     function Util.new(className, props, children)
         local inst = Instance.new(className)
@@ -146,7 +146,7 @@
             end
         end)
     end
-    Yusuf.exe.Util = Util
+    YusufExe.Util = Util
     local NotifyGui
     local function ensureNotifyGui()
         if NotifyGui and NotifyGui.Parent then return NotifyGui end
@@ -174,7 +174,7 @@
         })
         return NotifyGui
     end
-    function Yusuf.exe:Notify(opts)
+    function YusufExe:Notify(opts)
         opts = opts or {}
         local title    = opts.Title or "Yusuf.exe"
         local content  = opts.Content or ""
@@ -1236,7 +1236,7 @@
                 gui.Enabled = not gui.Enabled
             end
         end)
-        table.insert(Yusuf.exe._WINDOWS, self)
+        table.insert(YusufExe._WINDOWS, self)
         return self
     end
     function Window:CreateTab(opts)
@@ -1267,13 +1267,13 @@
         task.wait(0.22)
         self.Gui:Destroy()
     end
-    function Yusuf.exe:CreateWindow(opts) return Window.new(opts) end
-    function Yusuf.exe:SetTheme(overrides)
+    function YusufExe:CreateWindow(opts) return Window.new(opts) end
+    function YusufExe:SetTheme(overrides)
         for k, v in pairs(overrides or {}) do Theme[k] = v end
     end
-    function Yusuf.exe:Destroy()
-        for _, w in ipairs(Yusuf.exe._WINDOWS) do pcall(function() w:Destroy() end) end
-        Yusuf.exe._WINDOWS = {}
+    function YusufExe:Destroy()
+        for _, w in ipairs(YusufExe._WINDOWS) do pcall(function() w:Destroy() end) end
+        YusufExe._WINDOWS = {}
     end
     local function pickCallback(o)
         return o and (o.Callback or o.Callbacks or o.Function) or function() end
@@ -1383,7 +1383,7 @@
     end
     function Window:MakeNotification(o)
         o = o or {}
-        Yusuf.exe:Notify({
+        YusufExe:Notify({
             Title   = o.Name or o.Title or "Yusuf.exe",
             Content = o.Content or o.Text or "",
             Duration = o.Time or o.Duration or 4,
@@ -1426,7 +1426,7 @@
     end
         return api
     end
-    Yusuf.exe.MakeWindow = Yusuf.exe.CreateWindow
+    YusufExe.MakeWindow = YusufExe.CreateWindow
     if _G.Yusuf.exeLoaded then return end
     _G.Yusuf.exeLoaded = true
     local getgenv = getgenv or function() return {} end
@@ -1525,7 +1525,7 @@
         return container
     end
     function Notify(Name, content, duration)
-        Yusuf.exe:Notify({
+        YusufExe:Notify({
             Name = Name,
             Content = content,
             Duration = duration or 3,
@@ -3676,7 +3676,7 @@
             if timerTask then task.cancel(timerTask); timerTask = nil end
         end
     end
-    local Window = Yusuf.exe:CreateWindow({
+    local Window = YusufExe:CreateWindow({
         Title = "Yusuf.exe",
         SubTitle = "",
         ToggleKey = Enum.KeyCode.LeftControl,
